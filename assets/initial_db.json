@@ -1,0 +1,17 @@
+{
+    "event_type" : {
+        "log": "log",
+        "analytics": "analytics"
+    },
+    "log_level": {
+        "info": "info",
+        "debug": "debug",
+        "warning": "warning",
+        "error": "error",
+        "critical": "critical"
+    },
+    "source": {
+        "global_log": "global_log",
+        "my_goods": "my_goods"
+    }
+}

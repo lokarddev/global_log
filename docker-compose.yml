@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=go_log_db
+    expose:
+      - 5432
+    ports:
+      - 5436:5432
+    networks:
+      - app-network
+
+  app:
+    env_file:
+      - .env.dev
+    environment:
+      - WAIT_HOSTS=postgres:5432
+      - WAIT_HOSTS_TIMEOUT=10
+      - WAIT_SLEEP_INTERVAL=5
+      - WAIT_HOST_CONNECT_TIMEOUT=20
+    build: .
+    expose:
+      - 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - broker
+    command: sh -c "/wait && /app/cmd/global_log"
+    links:
+      - postgres
+    restart: on-failure
+    networks:
+      - app-network
+
+  broker:
+    image: redis:alpine
+    restart: always
+    ports:
+      - '127.0.0.1:6380:6379'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
