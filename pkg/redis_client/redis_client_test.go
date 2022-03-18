@@ -19,7 +19,7 @@ func newTestRedisClient() (*miniredis.Miniredis, error) {
 	err = os.Setenv("REDIS_HOST", mr.Host())
 	err = os.Setenv("REDIS_PORT", mr.Port())
 	err = os.Setenv("REDIS_USER", "default")
-	err = os.Setenv("REDIS_PROTOCOL", "redis_client")
+	err = os.Setenv("REDIS_PROTOCOL", "redis")
 	err = os.Setenv("DEBUG", "true")
 	return mr, err
 }
