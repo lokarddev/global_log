@@ -1,1 +1,1 @@
-# global_log
+# gLog
